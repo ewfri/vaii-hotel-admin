@@ -51,6 +51,21 @@ class RezervaciaController extends Controller
         return redirect('/rezervacie')->with('success', 'Rezervácia bola uložená.');
     }
 
+    public function reserve(Request $request)
+    {
+        $validatedData = $request->validate([
+            'meno' => 'required|max:255',
+            'priezvisko' => 'required|max:255',
+            'od' => 'required|date|after:today',
+            'do' => 'required|date|after:od',
+            'osoby' => 'required',
+        ]);
+        $show = Rezervacia::create($validatedData);
+
+        //return redirect('/')->with('success', 'Rezervácia bola uložená.');
+        return redirect('/');
+    }
+
     /**
      * Display the specified resource.
      *

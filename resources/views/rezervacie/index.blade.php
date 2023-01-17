@@ -3,12 +3,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="/rezervacie/create" class="btn btn-success" style="margin-left:20px">Vytvoriť rezerváciu</a>
     <div class="uper" style="margin: 10px">
         @if(session()->get('success'))
             <div class="alert alert-success">
                 {{ session()->get('success') }}
-            </div><br />
+            </div><br/>
         @endif
         <table class="table table-striped">
             <thead>
@@ -31,7 +30,8 @@
                     <td>{{$rezervacia->od}}</td>
                     <td>{{$rezervacia->do}}</td>
                     <td>{{$rezervacia->osoby}}</td>
-                    <td><a href="{{ route('rezervacie.edit', $rezervacia->id)}}" class="btn btn-primary">Upraviť</a></td>
+                    <td><a href="{{ route('rezervacie.edit', $rezervacia->id)}}" class="btn btn-primary">Upraviť</a>
+                    </td>
                     <td>
                         <form action="{{ route('rezervacie.destroy', $rezervacia->id)}}" method="post">
                             @csrf
@@ -43,14 +43,10 @@
             @endforeach
             </tbody>
         </table>
-        <div>
-            <script type="text/javascript">
-                let elems = document.getElementsByClassName('btn-danger');
-                let confirmIt = function (e) {
-                    if (!confirm('Naozaj chcete danú rezerváciu vymazať?')) e.preventDefault();
-                };
-                for (let i = 0, l = elems.length; i < l; i++) {
-                    elems[i].addEventListener('click', confirmIt, false);
-                }
-            </script>
+    </div>
+
+@endsection
+
+@section('scripts')
+    <script src="/js/delete_prevent.js"></script>
 @endsection
